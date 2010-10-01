@@ -1,1 +1,76 @@
-Including documentation on Diaspora Pre-alpha live DVD V0.03
+#Documentation:
+##Created by Michael Chrisco. 
+#michaelachrisco@gmail.com
+
+##Start with minimal ubuntu install:
+##*Remove quite a few packages. 
+
+sudo sh -c 'echo "# Remastersys" >> /etc/apt/sources.list';
+sudo sh -c 'echo "deb http://www.geekconnection.org/remastersys/repository karmic/" >> /etc/apt/sources.list';
+##Adds repositories for remastersys
+
+sudo apt-get update;
+sudo apt-get autoremove;
+sudo apt-get install remastersys;
+
+
+##Do some changes to the current OS you have.
+
+##use the following commands in the terminal to create a live distro of ##Ubuntu in backup mode.
+
+sudo apt-get install build-essential libxslt1.1 libxslt1-dev libxml2;
+#setting up build
+sudo apt-get install ruby-full;
+#setting up ruby
+
+#sudo sh -c 'echo "deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen" >> /etc/apt/sources.list';
+#sudo apt-get update;
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10;
+#sudo apt-get install mongodb-stable;
+##the above seems to have an error in the live CD. After live CD is made
+##it seems that mongodb is not recognized.  
+
+wget http://fastdl.mongodb.org/linux/mongodb-linux-i686-1.6.2.tgz
+tar xzf mongodb-linux-i686-1.6.2.tgz
+sudo mkdir -p /data/db
+sudo chmod -Rv 777 /data/
+sudo apt-get remove mongodb
+sudo apt-get install mongodb-stable
+sudo service mongodb stop
+#setting up mongodb
+
+sudo apt-get install imagemagick libmagick9-dev;
+#setting up imagemagick
+
+sudo apt-get install git-core;
+#setting up git
+
+sudo add-apt-repository ppa:maco.m/ruby;
+sudo apt-get update;
+sudo apt-get install rubygems;
+#setting up rubygems
+
+sudo gem install bundler;
+#set up bundler
+
+git clone http://github.com/diaspora/diaspora.git;
+#'git' diaspora*
+
+/var/lib/gems/1.8/bin/bundle;
+/var/lib/gems/1.8/bin/bundle;
+
+service mongodb start;
+#starts mongodd if it hasnt started already
+/var/lib/gems/1.8/bin/bundle exec thin start
+#starts server. Bundle is at the above directory. 
+
+#need to stop both servers before the remaster clean and/or the backup
+sudo service mongodb stop
+
+#sudo remastersys clean
+#sudo remastersys backup foo.iso
+
+##The iso will be under /home/remastersys/remastersys
+
+
+
